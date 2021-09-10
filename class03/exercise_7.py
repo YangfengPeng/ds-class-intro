@@ -32,6 +32,25 @@ def check_path(path):
 	>>> False, []
 	'''
 
+	# code up your solution here
+	import os
+	if os.path.exist(path):
+		result = []
+		if path == os.path.abspath(path):
+			result.append(True)
+		else:
+			result.append(False)
+		if os.path.isdir(path):
+			result.append(True)
+		else:
+			result.append(False)
+		if os.path.isfile(path):
+			result.append(True)
+		else:
+			result.append(False)
+		return True, result
+	else:
+		return False, []
 
 def read_csv(file):
 	'''
@@ -49,18 +68,23 @@ def read_csv(file):
 	'''
 
 	# code up your solution here
-
+	with open(file, 'r') as f:
+		reader = csv.reader(f, delimiter=',')
+		num = 0
+		for row in reader:
+			num += 1
+	return num
 
 def write_csv(data_list, output_file):
 	'''
-	write out a csv file for the data list (structed as list of list), 
-	where each item in the data_list is a row in output file, and 
+	write out a csv file for the data list (structed as list of list),
+	where each item in the data_list is a row in output file, and
 	every element in the sublist is separated by comma
 
 	Arguments:
-	data_list: input data list, each elemet is a list representing 
+	data_list: input data list, each elemet is a list representing
 		a row with values for each column
-	file: path to save the csv file 
+	file: path to save the csv file
 
 	Returns:
 	None
@@ -68,7 +92,7 @@ def write_csv(data_list, output_file):
 	Example:
 	data_list = [(1,2,3,4), (5,6,7,8), (9,10,11,12)]
 	write_csv(data_list, 'example.csv')
-	
+
 	'example.csv' looks like below:
 	1,2,3,4
 	5,6,7,8
@@ -76,7 +100,10 @@ def write_csv(data_list, output_file):
 	'''
 
 	# code up your solution here
-
+	with open(output_file, 'w', newline='') as f:
+    writer = csv.writer(f)
+    for row in data_list:
+        writer.writerow(data_list)
 
 def read_json(file):
 	'''
@@ -94,7 +121,10 @@ def read_json(file):
 	'''
 
 	# code up you solution here
-
+	import json
+	with open(file) as f:
+    js = json.load(f)
+	return js
 
 if __name__=="__main__":
 	pass
